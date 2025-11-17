@@ -1,0 +1,83 @@
+# ===============================
+#  APP: costos  — Raíz del sitio
+#  Entornos: DEV (localhost/subred) y PROD (dominio público)
+# ===============================
+
+# --- Seguridad básica ---
+Options -Indexes -MultiViews
+ServerSignature Off
+DirectoryIndex index.php
+
+# Bloquear acceso a archivos sensibles
+<FilesMatch "(\.env|env\.php|composer\.json|composer\.lock|phpunit\.xml|^\.|\.bak|\.old|\.orig)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Detección de entorno (DEV si host es local/privado/.local/.test) ---
+  SetEnvIf Host "^(localhost|127\.0\.0\.1)$" dev_host=1
+  SetEnvIf Host "^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)" dev_host=1
+  SetEnvIf Host "\.local(:\d+)?$" dev_host=1
+  SetEnvIf Host "\.test(:\d+)?$"  dev_host=1
+
+  # --- Forzar HTTPS solo en PROD ---
+  # Si estás detrás de proxy/CDN que manda X-Forwarded-Proto, considera esa cabecera
+  RewriteCond %{ENV:dev_host} !1
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+  # --- Passthrough de archivos/directorios reales ---
+  # (CSS/JS/IMG en /public, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # --- Front Controller ---
+  # Funciona tanto en PROD (raíz) como en DEV (subcarpeta /costos)
+  # No necesitas RewriteBase.
+  RewriteRule ^ index.php [L]
+</IfModule>
+
+# --- Headers de seguridad recomendados ---
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# --- Cache por entorno ---
+# En DEV: desactivar cache para evitar pegar assets
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0" "env=dev_host"
+  Header set Pragma "no-cache" "env=dev_host"
+  Header set Expires "0" "env=dev_host"
+</IfModule>
+
+# En PROD: cache agresiva para assets estáticos dentro de /public (si mod_expires está disponible)
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # 7 días por defecto
+  ExpiresDefault "access plus 7 days"
+
+  # 30 días para assets más pesados
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType application/x-javascript "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/gif "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 30 days"
+  ExpiresByType application/font-woff2 "access plus 30 days"
+</IfModule>
+
+# (Opcional) En PROD añadir compresión si mod_deflate está disponible
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+

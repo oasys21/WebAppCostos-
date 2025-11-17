@@ -1,0 +1,159 @@
+/costos/
+├─ .htaccess
+├─ index.php
+├─ directory.txt this file
+├─ config/
+│  ├─ env.php
+│  ├─ bd_costos.sql
+│  └─ database.php
+├─ core/
+│  ├─ Acl.php
+│  ├─ Audit.php
+│  ├─ Controller.php
+│  ├─ Router.php
+│  ├─ Session.php
+│  └─ Storage.php
+├─ public/
+│  ├─ css/
+│  │  ├─ bootstrap.min.css
+│  │  ├─ bootstrap.icons.css
+│  │  ├─ bootstrap.icons.min.css
+│  │  ├─ bootstrap.icons.scss
+│  │  └─ app.css
+│  ├─ js/
+│  │  ├─ jquery-3.7.1.min.js
+│  │  ├─ bootstrap.bundle.min.js
+│  │  ├─ caja.js
+│  │  ├─ compras.js
+│  │  ├─ rutcl.js
+│  │  └─ app.js
+│  └─ images/
+│     ├─ gear_02.png
+│     ├─ gear_03.png
+│     ├─ gear_09.png
+│     ├─ gear_13.png
+│     ├─ fondoverde3.jpg
+│     ├─ herram3.png
+│     ├─ herram5.png
+│     ├─ herram6.png
+│     ├─ usuarios/Fotoxxxx.png
+│     └─ dox/documentacion
+├─ runtime/
+│  ├─ compras.log
+│  ├─ gestion.log
+│  ├─ ocompras.log
+│  └─ proyecto_etapas.log
+│
+├─ storage/
+│	├─ .htaccess
+│	├─ cache/
+│	├─ private/│
+│	└─ tmp/
+│
+├─ app/
+│  ├─ models/
+│  │  ├─ AvanceCostos.php
+│  │  ├─ Caja.php
+│  │  ├─ Clientes.php
+│  │  ├─ Compra.php
+│  │  ├─ CompraItem.php
+│  │  ├─ CostosCatalogo.php
+│  │  ├─ CostosPrecios.php
+│  │  ├─ Documentos.php
+│  │  ├─ DocCategorias.php
+│  │  ├─ Gestion.php
+│  │  ├─ Logsys.php
+│  │  ├─ Ocompras.php
+│  │  ├─ Proveedores.php
+│  │  ├─ ProyectoCostos.php
+│  │  ├─ ProyectoEtapas.php
+│  │  ├─ Proyectos.php
+│  │  └─ Usuarios.php
+│  ├─ controllers/
+│  │  ├─ AuthController.php
+│  │  ├─ ApiController.php
+│  │  ├─ AvancesController.php
+│  │  ├─ CajaController.php
+│  │  ├─ CatalogoController.php
+│  │  ├─ ClientesController.php
+│  │  ├─ ComprasController.php
+│  │  ├─ DashboardController.php
+│  │  ├─ DocCategoriasController.php
+│  │  ├─ GestionController.php
+│  │  ├─ ImputacionesController.php
+│  │  ├─ LogsysController.php
+│  │  ├─ MaestrosController.php
+│  │  ├─ OcomprasController.php
+│  │  ├─ PresupuestosController.php
+│  │  ├─ ProveedoresController.php
+│  │  ├─ ProyectosEtapasController.php
+│  │  ├─ ProyectosController.php
+│  │  ├─ SiteController.php
+│  │  └─ UsuariosController.php
+│  └─ views/
+│     ├─ compras/
+│	  │	 ├─ form.php
+│	  │	 ├─ index.php
+│	  │	 └─ show.php
+│     ├─ imputaciones/
+│	  │	 ├─ form.php
+│	  │	 └─ index.php
+│     ├─ layout/
+│     │  ├─ header.php
+│     │  └─ footer.php
+│     ├─ gestion/
+│	  │	 ├─ form.php
+│	  │	 ├─ index.php
+│	  │	 └─ show.php
+│     ├─ ocompras/
+│	  │	 ├─ form.php
+│	  │	 ├─ index.php
+│	  │	 ├─ print.php
+│	  │	 └─ show.php
+│     ├─ proyecto_etapas/
+│	  │	 ├─ form.php
+│	  │	 ├─ index.php
+│	  │	 └─ show.php
+│     ├─ site/
+│	  │	 ├─ acerca.php
+│	  │	 ├─ contacto.php
+│	  │	 ├─ form_contacto.php
+│	  │	 └─ landing.php
+│     ├─ auth_login.php
+│     ├─ avances_create.php
+│     ├─ avances_edit.php
+│     ├─ avances_index.php
+│     ├─ caja_edit.php
+│     ├─ caja_form.php
+│     ├─ caja_index.php
+│     ├─ caja_ingresos.php
+│     ├─ caja_print.php
+│     ├─ caja_show.php
+│     ├─ catalogo_index.php
+│     ├─ clientes_create.php
+│     ├─ clientes_edit.php
+│     ├─ clientes_index.php
+│     ├─ dashboard_index.php
+│     ├─ doc_categorias_create.php
+│     ├─ doc_categorias_edit.php
+│     ├─ doc_categorias_index.php
+│     ├─ documentos_create.php
+│     ├─ documentos_edit.php
+│     ├─ documentos_index.php
+│     ├─ documentos_versions.php
+│     ├─ logsys_index.php
+│     ├─ presupuestos_cloner.php
+│     ├─ presupuestos_create.php
+│     ├─ presupuestos_edit.php
+│     ├─ presupuestos_index.php
+│     ├─ presupuestos_print.php
+│     ├─ proveedores_create.php
+│     ├─ proveedores_edit.php
+│     ├─ proveedores_index.php
+│     ├─ proyectos_create.php
+│     ├─ proyectos_edit.php
+│     ├─ proyectos_index.php
+│     ├─ usuarios_create.php
+│     ├─ usuarios_edit.php
+│     ├─ usuarios_index.php
+│     └─ usuarios_miperfil.php
